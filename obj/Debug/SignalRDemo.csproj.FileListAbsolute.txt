@@ -83,3 +83,5 @@ D:\Dev\OBXtek\SignalRDemo\obj\Debug\SignalRDemo.csproj.CoreCompileInputs.cache
 D:\Dev\OBXtek\SignalRDemo\obj\Debug\SignalRDemo.csproj.CopyComplete
 D:\Dev\OBXtek\SignalRDemo\obj\Debug\SignalRDemo.dll
 D:\Dev\OBXtek\SignalRDemo\obj\Debug\SignalRDemo.pdb
+D:\Dev\OBXtek\SignalRDemo\obj\Debug\SignalRDemo.Migrations.InitialMigration.resources
+D:\Dev\OBXtek\SignalRDemo\obj\Debug\SignalRDemo.csproj.GenerateResource.cache
