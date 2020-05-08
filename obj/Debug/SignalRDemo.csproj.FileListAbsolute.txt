@@ -85,3 +85,9 @@ D:\Dev\OBXtek\SignalRDemo\obj\Debug\SignalRDemo.dll
 D:\Dev\OBXtek\SignalRDemo\obj\Debug\SignalRDemo.pdb
 D:\Dev\OBXtek\SignalRDemo\obj\Debug\SignalRDemo.Migrations.InitialMigration.resources
 D:\Dev\OBXtek\SignalRDemo\obj\Debug\SignalRDemo.csproj.GenerateResource.cache
+D:\Dev\OBXtek\SignalRDemo\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\Dev\OBXtek\SignalRDemo\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\Dev\OBXtek\SignalRDemo\bin\Microsoft.AspNet.SignalR.Core.pdb
+D:\Dev\OBXtek\SignalRDemo\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\Dev\OBXtek\SignalRDemo\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+D:\Dev\OBXtek\SignalRDemo\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
