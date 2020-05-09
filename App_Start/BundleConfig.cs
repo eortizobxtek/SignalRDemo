@@ -21,7 +21,7 @@ namespace SignalRDemo
                             "~/Scripts/WebForms/DetailsView.js",
                             "~/Scripts/WebForms/TreeView.js",
                             "~/Scripts/datatables.min.js",
-                            "~/Scripts/jquery.signalR-2.4.1.min.js",
+                            //"~/Scripts/jquery.signalR-2.4.1.min.js",
                             "~/Scripts/WebForms/WebParts.js"));
 
             // Order is very important for these files to work, they have explicit dependencies

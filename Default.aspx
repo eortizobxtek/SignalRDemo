@@ -26,8 +26,16 @@
         </table>
     </div>
 
+     <input id="text1" type="text" />
 
-    
+    <input id="button1" type="button" value="Send" />
+
+    <ul id="discussion">
+
+    </ul>
+
+    <script src="Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="signalr/hubs"></script>
     <script>
         $(document).ready(function () {
             $("#assignment-tbl").DataTable({
@@ -51,9 +59,49 @@
                 ]
 
             });
-
-
         })
+    </script>
+    <script type="text/javascript">
+
+        $(function () {
+
+            // Declare a proxy to reference the hub.
+
+            var notifications = $.connection.assignmentHub;
+
+            // Create a function that the hub can call to broadcast messages.
+
+            notifications.client.receiveNotification = function (message) {
+
+                // alert(" says '" + message + "'");
+
+                // Html encode display name and message.                
+
+                var encodedMsg = $('<div />').text(message).html();
+
+                // Add the message to the page.
+
+                $('#discussion').append('<li>' + encodedMsg + '</li>');
+
+            };
+
+            // Start the connection.
+
+            $.connection.hub.start().done(function () {
+
+                $("#button1").click(function () {
+
+                    notifications.server.sendNotifications($("#text1").val());
+
+                }).fail(function (e) {
+
+                    alert(e);
+
+                });
+
+            });
+
+        });
 
     </script>
 
