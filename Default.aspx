@@ -10,6 +10,7 @@
                     <th>Title</th>
                     <th>Assignment Status</th>
                     <th>Description</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +22,7 @@
                     <th>Title</th>
                     <th>Assignment Status</th>
                     <th>Description</th>
+                    <th></th>
                 </tr>
             </tfoot>
         </table>
@@ -56,53 +58,59 @@
                     {
                         data: "Description",
                     },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return '<button type="button" class="btn btn-primary status-toggle">Toggle Status</button>';
+                        }
+                    },
                 ]
 
             });
         })
     </script>
     <script type="text/javascript">
-
+    
         $(function () {
-
+    
             // Declare a proxy to reference the hub.
-
+    
             var notifications = $.connection.assignmentHub;
-
+    
             // Create a function that the hub can call to broadcast messages.
-
+    
             notifications.client.receiveNotification = function (message) {
-
+    
                 // alert(" says '" + message + "'");
-
-                // Html encode display name and message.                
-
+    
+                // Html encode display name and message.
+    
                 var encodedMsg = $('<div />').text(message).html();
-
+    
                 // Add the message to the page.
-
+    
                 $('#discussion').append('<li>' + encodedMsg + '</li>');
-
+    
             };
-
+    
             // Start the connection.
-
+    
             $.connection.hub.start().done(function () {
-
+    
                 $("#button1").click(function () {
-
+    
                     notifications.server.sendNotifications($("#text1").val());
-
+    
                 }).fail(function (e) {
-
+    
                     alert(e);
-
+    
                 });
-
+    
             });
-
+    
         });
-
+    
     </script>
 
 
