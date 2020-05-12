@@ -39,7 +39,11 @@
                 },
                 columns: [
                     {
-                        data: "Id",                    
+                        data: "Id", 
+                        createdCell:  function (td, cellData, rowData, row, col) {
+                                             $(td).attr("id", rowData.Id)
+                                            
+                        }                  
                     },
                     {
                         data: "Title",
@@ -104,9 +108,10 @@
                         // receive hub broadcasts
                         var notifications = $.connection.assignmentHub;
                         notifications.client.receiveNotification = function (message) {
-                            alert("Status of row  " + message + " changed");
-                            // $("#assignment-tbl").DataTable().ajax.reload();
-                            
+                            alert("Status of assignment id  " + message + " changed");
+                            var status = $("#"+message).closest("tr").find('td').eq(2).html();
+                            var newStatus = Math.abs(parseInt(status) % 2 - 1);
+                            $("#"+message).closest("tr").find('td').eq(2).html(newStatus);                            
                         };
     </script>
 
