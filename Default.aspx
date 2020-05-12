@@ -80,9 +80,7 @@
             // Create a function that the hub can call to broadcast messages.
     
             notifications.client.receiveNotification = function (message) {
-    
-                // alert(" says '" + message + "'");
-    
+        
                 // Html encode display name and message.
     
                 var encodedMsg = $('<div />').text(message).html();
@@ -97,14 +95,33 @@
     
             $.connection.hub.start().done(function () {
     
-                $("#button1").click(function () {
-    
-                    notifications.server.sendNotifications($("#text1").val());
+                $(".status-toggle").click(function () {
+                    var button = $(this);
+                    var status = button.closest("tr").find('td').eq(2).html();
+                    var id = button.closest("tr").find('td').eq(0).html();
+                    var newStatus = Math.abs(parseInt(status) % 2 - 1);
+                    
+                     var putData = {
+                        	"Status": newStatus,
+                        	"Title" : "Updated Title",
+                        	"Description" : "This assignment was changed with Web API put method"                      
+                     }
+                     putData = JSON.stringify(putData);
+                    $.ajax({
+                        url: '/api/assignment/UpdateAssignment?id=' + id,
+                        contentType: "application/json",
+                        dataType: "json",
+                        type: 'PUT',   
+                        data: putData,
+                        success: function (result) {
+                            console.log(result)
+                            notifications.server.sendNotifications("Status of asssignment id " + id + "changed." );
+                            alert('Test succeeded')
+                        }
+                    })
     
                 }).fail(function (e) {
-    
                     alert(e);
-    
                 });
     
             });
