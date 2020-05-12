@@ -89,8 +89,8 @@
                             type: 'PUT',   
                             data: putData,
                             success: function (result) {
-                                console.log("Status of asssignment id " + id + "changed." )
-                                notifications.server.sendNotifications("Status of assignment id " + id + " changed." );                                
+                                console.log("Status of asssignment id " + id + " changed." )
+                                notifications.server.sendNotifications(id); 
                             }
                         })
         
@@ -102,11 +102,11 @@
     </script>
     <script type="text/javascript">
                         // receive hub broadcasts
-                                var notifications = $.connection.assignmentHub;
-
+                        var notifications = $.connection.assignmentHub;
                         notifications.client.receiveNotification = function (message) {
-                            alert(message)
+                            alert("Status of row  " + message + " changed");
                             // $("#assignment-tbl").DataTable().ajax.reload();
+                            
                         };
     </script>
 
