@@ -76,7 +76,7 @@ namespace SignalRDemo.Controllers
             assignmentInDb.Title = assignment.Title;
             assignmentInDb.Description = assignment.Description;
             _context.SaveChanges();
-            return Ok();
+            return Ok(assignmentInDb);
         }
 
         // DELETE api/<controller>/5

@@ -27,20 +27,12 @@
             </tfoot>
         </table>
     </div>
-
-     <input id="text1" type="text" />
-
-    <input id="button1" type="button" value="Send" />
-
-    <ul id="discussion">
-
-    </ul>
-
+    
     <script src="Scripts/jquery.signalR-2.4.1.min.js"></script>
     <script src="signalr/hubs"></script>
     <script>
         $(document).ready(function () {
-            $("#assignment-tbl").DataTable({
+          var assignmentTable =   $("#assignment-tbl").DataTable({
                 ajax: {
                     url: "/api/assignment",
                     dataSrc: ""
@@ -67,67 +59,55 @@
                 ]
 
             });
+                     
+                // hub reference
+        
+                var notifications = $.connection.assignmentHub;
+        
+
+        
+                // connection start for hub
+        
+                $.connection.hub.start().done(function () {
+        
+                    $(".status-toggle").click(function () {
+                        var button = $(this);
+                        var status = button.closest("tr").find('td').eq(2).html();
+                        var id = button.closest("tr").find('td').eq(0).html();
+                        var newStatus = Math.abs(parseInt(status) % 2 - 1);
+                        
+                         var putData = {
+                                "Status": newStatus,
+                                "Title" : "Updated Title",
+                                "Description" : "This assignment was changed with Web API put method"                      
+                         }
+                         putData = JSON.stringify(putData);
+                        $.ajax({
+                            url: '/api/assignment/UpdateAssignment?id=' + id,
+                            contentType: "application/json",
+                            dataType: "json",
+                            type: 'PUT',   
+                            data: putData,
+                            success: function (result) {
+                                console.log("Status of asssignment id " + id + "changed." )
+                                notifications.server.sendNotifications("Status of assignment id " + id + " changed." );                                
+                            }
+                        })
+        
+                    });
+        
+                });
+            
         })
     </script>
     <script type="text/javascript">
-    
-        $(function () {
-    
-            // Declare a proxy to reference the hub.
-    
-            var notifications = $.connection.assignmentHub;
-    
-            // Create a function that the hub can call to broadcast messages.
-    
-            notifications.client.receiveNotification = function (message) {
-        
-                // Html encode display name and message.
-    
-                var encodedMsg = $('<div />').text(message).html();
-    
-                // Add the message to the page.
-    
-                $('#discussion').append('<li>' + encodedMsg + '</li>');
-    
-            };
-    
-            // Start the connection.
-    
-            $.connection.hub.start().done(function () {
-    
-                $(".status-toggle").click(function () {
-                    var button = $(this);
-                    var status = button.closest("tr").find('td').eq(2).html();
-                    var id = button.closest("tr").find('td').eq(0).html();
-                    var newStatus = Math.abs(parseInt(status) % 2 - 1);
-                    
-                     var putData = {
-                        	"Status": newStatus,
-                        	"Title" : "Updated Title",
-                        	"Description" : "This assignment was changed with Web API put method"                      
-                     }
-                     putData = JSON.stringify(putData);
-                    $.ajax({
-                        url: '/api/assignment/UpdateAssignment?id=' + id,
-                        contentType: "application/json",
-                        dataType: "json",
-                        type: 'PUT',   
-                        data: putData,
-                        success: function (result) {
-                            console.log(result)
-                            notifications.server.sendNotifications("Status of asssignment id " + id + "changed." );
-                            alert('Test succeeded')
-                        }
-                    })
-    
-                }).fail(function (e) {
-                    alert(e);
-                });
-    
-            });
-    
-        });
-    
+                        // receive hub broadcasts
+                                var notifications = $.connection.assignmentHub;
+
+                        notifications.client.receiveNotification = function (message) {
+                            alert(message)
+                            // $("#assignment-tbl").DataTable().ajax.reload();
+                        };
     </script>
 
 
