@@ -8,8 +8,6 @@ namespace SignalRDemo.SignalRConnections
 {
     public class AssignmentHub : Hub
     {
-        //[HubMethodName("Send")]
-
         public void Send(string name, string message)
 
         {
@@ -17,10 +15,6 @@ namespace SignalRDemo.SignalRConnections
             Clients.All.broadcastMessage(name, message);
 
         }
-
-
-
-        // [HubMethodName("SendNotifications")]
 
         public void SendNotifications(string message)
 
